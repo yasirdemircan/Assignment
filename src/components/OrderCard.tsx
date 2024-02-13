@@ -8,7 +8,7 @@ import { MdCancel } from "react-icons/md";
 
 export default function OrderCard({data,cancelHandle}:{data:OrderType,cancelHandle:(id:string)=>void}) {
 
-  
+  //Get which language we are using
   const {languageVal} = useContext(LanguageContext)
 
  
@@ -33,13 +33,13 @@ export default function OrderCard({data,cancelHandle}:{data:OrderType,cancelHand
   
   </div>
         {
-          data.orders.map((order) => {
-            return <div className='flex flex-col'>
+          data.orders.map((order,index) => {
+            return <div className='flex flex-col' key={index}>
         
               <div className='flex flex-row justify-end'>
                 <div className='flex flex-row'>
                 <p>{order.count + "x"}</p>
-                
+               {/* No translation exception */}
                 <p className='pl-5'>{languageVal ==="En"?order.en:(order.sk?order.sk:"Žiadny preklad")}</p>
                   </div>
                 <p className='text-right'>{"€ "+(order.price*order.count).toFixed(2)}</p>
@@ -51,6 +51,7 @@ export default function OrderCard({data,cancelHandle}:{data:OrderType,cancelHand
     <div className='bg-white w-full h-[2px]'></div>
     <div className='flex flex-row justify-end'>
       <p>Total</p>
+      {/*Calculating total per order card */}
       <p className='text-right'>{"€" + data.orders.reduce((acc,order)=>(acc +(order.price*order.count)),0).toFixed(2)}</p>
     </div>
         <div className="card-actions flex-row items-center justify-between">

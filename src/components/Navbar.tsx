@@ -8,10 +8,13 @@ import useTranslate from '../translations/Translations';
 
 export default function Navbar() {
 
+  //Index of the selected navbar element (for the styling)
   const [selected,setSelect] = useState(1)
 
+  //Get which language code we are on
   const {languageVal,setter} = useContext(LanguageContext)
 
+  //Custom useTranslate hook to load translated values
   const translations = useTranslate(languageVal as string)
 
 
@@ -50,6 +53,7 @@ export default function Navbar() {
   
       <div className={selected === 3 ? "bg-primary text-base-100 "+navbarMemberStyle : navbarMemberStyle}
       onClick={()=>{
+        //Modifies the context state to change global language
         if(languageVal === "En"){
           setter("Sk")
         }else{

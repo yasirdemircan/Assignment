@@ -14,6 +14,7 @@ export const Sk = {
     completed: "Dokončené"
 }
 
+//Shares a translation strings array according to language code
 export default function useTranslate(lang: string) {
 
     if (lang === "Sk") {
