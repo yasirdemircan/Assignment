@@ -2,13 +2,18 @@ const express = require('express');
 var cors = require('cors');
 
 const app = express();
+
+//Use cors middleware to avoid cors errors
 app.use(cors({
   origin: "*"
 }));
+
+//Function to get random id
 function getID(){
     return Math.round(Math.random()*100000).toString()
 }
 
+//Translations to add to order
 const translations = {
     Salad:"Šalát",
     Coke:"Koks",
@@ -17,6 +22,7 @@ const translations = {
     Dessert:"Dezert"
 }
 
+//Item prices
 const prices = {
     Salad:2.3,
     Coke:2,
@@ -26,11 +32,13 @@ const prices = {
     Chocolate:2.5
 }
 
+//Create an item with translation and price
 const getItem = (itemName,count)=>{
     
     return  ({ en: itemName, sk: translations[itemName]?translations[itemName]:null, price: prices[itemName], count: count })
 }
- 
+
+//Mock orders
 const orders = [
     {
         id: getID(),
@@ -129,7 +137,7 @@ app.get('/orders', (req, res) => {
 });
 
 // Start the server
-const port = process.env.PORT || 1337; // Use environment variable or default port 3000
+const port = 1337; // Listen port 1337
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
