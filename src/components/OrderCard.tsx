@@ -41,8 +41,16 @@ export default function OrderCard({data,cancelHandle}:{data:OrderType,cancelHand
               <div className='flex flex-row justify-end'>
                 <div className='flex flex-row'>
                 <p>{order.count + "x"}</p>
-               {/* No translation exception */}
-                <p className='pl-5'>{languageVal ==="En"?order.en:(order.sk?order.sk:"Žiadny preklad")}</p>
+               {/* No translation exception 
+               First condition:
+               Language is Sk and order.sk doesn't exist or language is En (for the red color)
+
+               Second condition: 
+               if Language is En get order.en else if order.sk
+               if order.sk does not exist return "No translation"
+               */}
+                <p className='pl-5' style={(languageVal==="Sk" && order.sk ) || languageVal == "En"?{}:{color:"red"}}>
+                  {languageVal ==="En"?order.en:(order.sk?order.sk:"Žiadny preklad")}</p>
                   </div>
                 <p className='text-right'>{"€ "+(order.price*order.count).toFixed(2)}</p>
               </div>
