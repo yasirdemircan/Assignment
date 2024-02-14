@@ -4,13 +4,15 @@ import { BsCalendar2Date } from "react-icons/bs";
 import { FaRegClock } from "react-icons/fa6";
 import { LanguageContext } from '../context/LanguageContext';
 import { MdCancel } from "react-icons/md";
+import useTranslate from '../translations/Translations';
 
 
 export default function OrderCard({data,cancelHandle}:{data:OrderType,cancelHandle:(id:string)=>void}) {
 
   //Get which language we are using
   const {languageVal} = useContext(LanguageContext)
-
+  //Get extra translations for ui
+  const Translations = useTranslate(languageVal as string)
  
 
   return (
@@ -50,14 +52,16 @@ export default function OrderCard({data,cancelHandle}:{data:OrderType,cancelHand
         }
     <div className='bg-white w-full h-[2px]'></div>
     <div className='flex flex-row justify-end'>
-      <p>Total</p>
+      <p>{Translations.total}</p>
       {/*Calculating total per order card */}
       <p className='text-right'>{"€" + data.orders.reduce((acc,order)=>(acc +(order.price*order.count)),0).toFixed(2)}</p>
     </div>
         <div className="card-actions flex-row items-center justify-between">
          
-            <div className='flex flex-row items-center cursor-pointer' onClick={()=>{cancelHandle(data.id)}}><MdCancel size={14}></MdCancel> Cancel</div>
-          <div className="badge badge-secondary">{(data.status.charAt(0).toUpperCase() + data.status.slice(1)).replaceAll("_"," ")}</div>
+    
+   <div className='flex flex-row items-center cursor-pointer' onClick={()=>{cancelHandle(data.id)}}><MdCancel size={14}></MdCancel> {Translations.cancel}</div>
+
+          <div className="badge badge-secondary">{(data.status.charAt(0).toUpperCase() + data.status.slice(1)).split("_").join(" ")}</div>
           
           
         </div>

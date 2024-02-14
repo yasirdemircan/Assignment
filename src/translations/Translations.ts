@@ -3,7 +3,9 @@ export const En = {
     account: "Account",
     orders: "Orders",
     pending: "Pending",
-    completed: "Completed"
+    completed: "Completed",
+    cancel:"Cancel",
+    total:"Total"
 }
 
 export const Sk = {
@@ -11,7 +13,10 @@ export const Sk = {
     account: "Účet",
     orders: "Objednávky",
     pending: "Čaká",
-    completed: "Dokončené"
+    completed: "Dokončené",
+    cancel:"Zrušiť",
+    total:"Celkom"
+
 }
 
 //Shares a translation strings array according to language code

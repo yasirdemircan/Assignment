@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Orders from "./components/Orders";
 import TabControl from "./components/TabControl";
 import LanguageProvider from "./context/LanguageContext";
+import React from "react";
 
 
 function App() {

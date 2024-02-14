@@ -99,7 +99,6 @@ const orders = [
         date: "15/01/2023",
         time: "20:10",
         orders: [
-          getItem("Dessert",6),
           getItem("Steak",2),
           getItem("Lemonade",2),
           getItem("Coke",5),

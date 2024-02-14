@@ -28,7 +28,14 @@ export default function Orders({selectedTab}:{selectedTab:string}) {
     let modifiedOrders = [... orders as OrderType[]]
     for(let order of modifiedOrders){
       if(order.id === id){
-        order.status = "canceled_by_customer"
+        //if order is already completed
+        if (['completed', 'canceled_by_customer', 'rejected', 'expired', 'failed'].includes(order.status)) {
+          alert("Failed to cancel a completed order")
+        }else{
+          //mark cancelled
+          order.status = "canceled_by_customer"
+        }
+        
       }
     }
     setOrders(modifiedOrders)
