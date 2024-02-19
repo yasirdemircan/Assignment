@@ -4,8 +4,9 @@ export const En = {
     orders: "Orders",
     pending: "Pending",
     completed: "Completed",
-    cancel:"Cancel",
-    total:"Total"
+    cancel: "Cancel",
+    total: "Total",
+    canceled: "Canceled"
 }
 
 export const Sk = {
@@ -14,8 +15,9 @@ export const Sk = {
     orders: "Objednávky",
     pending: "Čaká",
     completed: "Dokončené",
-    cancel:"Zrušiť",
-    total:"Celkom"
+    cancel: "Zrušiť",
+    total: "Celkom",
+    canceled: "Zrušiť"
 
 }
 

@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.pendingInactive {
+    @apply flex-1 border-solid rounded-md pl-10 flex items-center bg-primary
+}
+
+.pendingActive {
+    @apply bg-secondary font-bold flex-1 border-solid rounded-md pl-10 flex items-center
+}
+
+.completedInactive {
+    @apply flex-1 border-solid rounded-md pl-10 flex items-center bg-primary
+}
+
+
+.completedActive {
+    @apply bg-secondary font-bold flex-1 border-solid rounded-md pl-10 flex items-center
+}
+
+.canceledInactive {
+    @apply flex-1 border-solid rounded-md pl-10 flex items-center bg-primary
+}
+
+.canceledActive {
+    @apply bg-secondary font-bold flex-1 border-solid rounded-md pl-10 flex items-center
+}

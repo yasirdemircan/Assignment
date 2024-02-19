@@ -1,143 +1,69 @@
-const express = require('express');
-var cors = require('cors');
+const express = require('express')
+var cors = require('cors')
+const { register } = require('./methods/register')
+require('dotenv').config()
+const { login } = require("./methods/login")
+const jwt = require("jsonwebtoken")
 
-const app = express();
-
+const app = express()
+//use express json parser
+app.use(express.json())
 //Use cors middleware to avoid cors errors
 app.use(cors({
   origin: "*"
-}));
+}))
 
-//Function to get random id
-function getID(){
-    return Math.round(Math.random()*100000).toString()
-}
-
-//Translations to add to order
-const translations = {
-    Salad:"Šalát",
-    Coke:"Koks",
-    Lemonade:"Limonáda",
-    Steak:"Steak",
-    Dessert:"Dezert"
-}
-
-//Item prices
-const prices = {
-    Salad:2.3,
-    Coke:2,
-    Lemonade:1,
-    Steak:6.5,
-    Dessert:3.5,
-    Chocolate:2.5
-}
-
-//Create an item with translation and price
-const getItem = (itemName,count)=>{
-    
-    return  ({ en: itemName, sk: translations[itemName]?translations[itemName]:null, price: prices[itemName], count: count })
-}
 
 //Mock orders
-const orders = [
-    {
-        id: getID(),
-        date: "15/01/2023",
-        time: "20:10",
-        orders: [
-          getItem("Salad",2),
-          getItem("Coke",2)
-        ],
-        status: "new"
-      },
-      {
-        id: getID(),
-        date: "15/01/2023",
-        time: "20:10",
-        orders: [
-          getItem("Salad",1),
-          getItem("Steak",3)
-        ],
-        status: "waiting_for_confirmation"
-      },
-      {
-        id: getID(),
-        date: "15/01/2023",
-        time: "20:10",
-        orders: [
-          getItem("Lemonade",4),
-          getItem("Dessert",4)
-        ],
-        status: "confirmed"
-      },
-      {
-        id: getID(),
-        date: "15/01/2023",
-        time: "20:10",
-        orders: [
-          getItem("Dessert",6),
-          getItem("Steak",2),
-          getItem("Coke",5)
-        ],
-        status: "completed"
-      },      {
-        id: getID(),
-        date: "15/01/2023",
-        time: "20:10",
-        orders: [
-          getItem("Dessert",6),
-          getItem("Steak",2),
-          getItem("Coke",5)
-        ],
-        status: "canceled_by_customer"
-      },
-      {
-        id: getID(),
-        date: "15/01/2023",
-        time: "20:10",
-        orders: [
-          getItem("Dessert",6),
-          getItem("Steak",2),
-          getItem("Coke",5)
-        ],
-        status: "rejected"
-      },
-      {
-        id: getID(),
-        date: "15/01/2023",
-        time: "20:10",
-        orders: [
-          getItem("Steak",2),
-          getItem("Lemonade",2),
-          getItem("Coke",5),
-          getItem("Chocolate",5)
-        ],
-        status: "expired"
-      },
-      {
-        id: getID(),
-        date: "15/01/2023",
-        time: "20:10",
-        orders: [
-          getItem("Dessert",6),
-          getItem("Steak",2),
-          getItem("Salad",6),
-          getItem("Coke",5)
-        ],
-        status: "failed"
-      },
-      
-
-];
+const orders = require("./items").orders
 
 // GET /orders route
 app.get('/orders', (req, res) => {
   // Send the orders array as JSON with status code 200 (OK)
-  res.status(200).json(orders);
-});
+  res.status(200).json(orders)
+})
+
+app.post("/login", async (req, res) => {
+  let data = await req.body
+
+  await login(data).then((user) => {
+
+    const token = jwt.sign({
+      email: user.email,
+
+      role: "user"
+    }, process.env.API_SECRET, { expiresIn: "1 hr" })
+
+    const tokenObj = { error: false, value: token }
+    res.write(JSON.stringify(tokenObj))
+  }).catch((err) => {
+    const error = { error: true, value: err.message }
+    res.write(JSON.stringify(error))
+  })
+
+  res.end()
+})
+
+app.post("/register", async (req, res) => {
+
+
+  let data = await req.body
+
+  await register(data).then(() => {
+    res.write("Hello")
+  }).catch((err) => {
+    res.write(err.message)
+
+
+  })
+
+
+  res.end()
+
+})
 
 // Start the server
-const port = 1337; // Listen port 1337
+const port = 1337 // Listen port 1337
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+  console.log(`Server listening on port ${port}`)
+})
