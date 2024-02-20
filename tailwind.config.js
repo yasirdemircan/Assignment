@@ -3,7 +3,7 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        mytheme: {
+        standard: {
           "primary": "#e5d3cc",
           "secondary": "#f4978e",
           "accent": "#37cdbe",

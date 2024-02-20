@@ -50,9 +50,17 @@ app.post("/register", async (req, res) => {
   let data = await req.body
 
   await register(data).then(() => {
-    res.write("Hello")
+    const success = {
+      error: false,
+      data: "User registered successfuly!"
+    }
+    res.write(JSON.stringify(success))
   }).catch((err) => {
-    res.write(err.message)
+    const error = {
+      error: true,
+      data: err.message
+    }
+    res.write(JSON.stringify(error))
 
 
   })

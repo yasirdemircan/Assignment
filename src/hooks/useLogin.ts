@@ -1,4 +1,4 @@
-import type { LoginType } from "../schemes/loginScheme";
+import type { LoginType } from "../schemas/loginSchema";
 
 export default async function useLogin(userOBJ: LoginType, setLoginStatus: React.Dispatch<React.SetStateAction<string>>) {
 

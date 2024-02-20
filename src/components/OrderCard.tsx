@@ -5,6 +5,7 @@ import { FaRegClock } from "react-icons/fa6";
 import { LanguageContext } from '../context/LanguageContext';
 import { MdCancel } from "react-icons/md";
 import useTranslate from '../translations/Translations';
+import Capitatize from '../util/Capitalize';
 
 
 export default function OrderCard({ data, cancelHandle }: { data: OrderType, cancelHandle: (id: string) => void }) {
@@ -69,7 +70,7 @@ export default function OrderCard({ data, cancelHandle }: { data: OrderType, can
 
             <div className='flex flex-row items-center cursor-pointer' onClick={() => { cancelHandle(data.id) }}><MdCancel size={14}></MdCancel> {Translations.cancel}</div>
 
-            <div className="badge badge-secondary">{(data.status.charAt(0).toUpperCase() + data.status.slice(1)).split("_").join(" ")}</div>
+            <div className="badge badge-secondary">{Capitatize(data.status).split("_").join(" ")}</div>
 
 
           </div>

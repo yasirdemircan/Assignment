@@ -12,7 +12,7 @@ function App() {
 
 
   const [selectedPageTab, setSelectedPageTab] = useState<string>("Orders")
-  const [currentTheme, setCurrentTheme] = useState<string>("myTheme")
+  const [currentTheme, setCurrentTheme] = useState<string>("standard")
 
   const applicationTabs: ApplicationTabType = {
     "Orders": <Orders ></Orders>,
