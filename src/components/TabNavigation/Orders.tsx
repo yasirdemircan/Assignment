@@ -4,6 +4,7 @@ import useFetch from '../../hooks/useFetch'
 import { OrderType } from '../../types/OrderType'
 import { TabFilters } from '../../types/TabFilterType'
 import OrderTabControl from '../OrderTabControl'
+import ErrorComponent from '../ErrorComponent'
 
 export default function Orders() {
 
@@ -17,7 +18,7 @@ export default function Orders() {
   const [orders, setOrders] = useState<OrderType[]>([])
 
   //Loading/Error state
-  const [loading, setLoading] = useState("Loading...")
+  const [loading, setLoading] = useState("Ready")
 
   const [filter, setFilter] = useState(['completed', 'canceled_by_customer', 'rejected', 'expired', 'failed'])
 
@@ -70,20 +71,19 @@ export default function Orders() {
         <OrderTabControl tabSelector={setSelectedOrderTab}></OrderTabControl>
       </div>
 
+      {
+        //Loading indicator
+        loading === "Loading" ? <div><h1>Loading ...</h1></div> : <></>
+      }
 
+      {
+        //Retry button if request fails
+        (loading === "Error") ? <ErrorComponent onClick={() => {
+          getOrders()
+        }}></ErrorComponent> : <></>
+      }
       <div className='w-full h-full grid grid-cols-2 gap-4'>
-        {
-          //Loading indicator
-          orders.length === 0 ? <div><h1>{loading}</h1></div> : <></>
-        }
-        {
-          //Retry button if request fails
-          (orders.length === 0 && loading != "Loading...") ? <button className='btn btn-sm btn-primary' onClick={() => {
 
-            getOrders()
-
-          }}>Retry</button> : <></>
-        }
         {
           orders?.filter((order) => (filter.includes(order.status))).map((el) =>
             (<OrderCard cancelHandle={cancelHandle} key={el.id} data={el}></OrderCard>))
