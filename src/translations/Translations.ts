@@ -6,7 +6,11 @@ export const En = {
     completed: "Completed",
     cancel: "Cancel",
     total: "Total",
-    canceled: "Canceled"
+    canceled: "Canceled",
+    login: "Login",
+    register: "Register",
+    errMsg: "An error occured.",
+    retry: "Retry"
 }
 
 export const Sk = {
@@ -17,7 +21,11 @@ export const Sk = {
     completed: "Dokončené",
     cancel: "Zrušiť",
     total: "Celkom",
-    canceled: "Zrušiť"
+    canceled: "Zrušiť",
+    login: "Prihlásenie",
+    register: "Registrovať",
+    errMsg: "Vyskytla sa chyba.",
+    retry: "Skúsiť znova"
 
 }
 

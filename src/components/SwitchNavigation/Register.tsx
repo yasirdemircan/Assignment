@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { registerSchema, RegisterType } from '../../schemas/registerSchema';
 import useRegister from '../../hooks/useRegister';
-
+import { LanguageContext } from '../../context/LanguageContext';
+import useTranslate from '../../translations/Translations';
 
 
 export default function RegisterPage() {
@@ -12,6 +13,13 @@ export default function RegisterPage() {
     const [regPassword_conf, setPassword_conf] = useState<null | string>(null)
 
     const [registerStatus, setRegisterStatus] = useState<string>("ready")
+
+    //Get which language code we are on
+    const { languageVal } = useContext(LanguageContext)
+
+    //Custom useTranslate hook to load translated values
+    const translations = useTranslate(languageVal as string)
+
     const registerHook = useRegister
 
 
@@ -58,7 +66,7 @@ export default function RegisterPage() {
     return (
         <div className='w-full h-full pt-32 flex justify-center content-center items-center'>
             <div className='flex flex-col self-center w-64 gap-5'>
-                <h1 className='text-xl text-primary text-center'>Register</h1>
+                <h1 className='text-xl text-primary text-center'>{translations.register}</h1>
                 <input className='input input-bordered w-full max-w-xs' type='text' placeholder='Email' onChange={(e) => {
                     handleInput(e.target.value, 0)
                 }}></input>
@@ -71,8 +79,8 @@ export default function RegisterPage() {
                         handleInput(e.target.value, 2)
                     }}
                 ></input>
-                <button className='btn btn-primary max-w-xs' onClick={register}> Register </button>
-                <h3>{registerStatus != "ready" ? registerStatus : null}</h3>
+                <button className='btn btn-primary max-w-xs' onClick={register}> {translations.register} </button>
+                <h3>{registerStatus !== "ready" ? registerStatus : null}</h3>
             </div>
         </div>
     )

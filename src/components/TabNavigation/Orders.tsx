@@ -82,7 +82,10 @@ export default function Orders() {
           getOrders()
         }}></ErrorComponent> : <></>
       }
-      <div className='w-full h-full grid grid-cols-2 gap-4'>
+
+
+
+      <div style={{ scrollbarGutter: "stable" }} className='w-full max-h-[800px] grid grid-cols-2 gap-8 overflow-y-visible overflow-x-hidden'>
 
         {
           orders?.filter((order) => (filter.includes(order.status))).map((el) =>
@@ -91,6 +94,7 @@ export default function Orders() {
         }
 
       </div>
+
     </>
   )
 }
